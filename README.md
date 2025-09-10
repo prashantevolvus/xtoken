@@ -70,14 +70,29 @@ The API will be available at `http://localhost:8001`
 
 Visit `http://localhost:8001/docs` for interactive API documentation.
 
-### 3. Serve the Embedding Demo
+### 3. Try the Examples
 
+Choose from two example implementations:
+
+#### Option A: Vanilla JavaScript Example
 ```bash
 # Start the local HTTP server
 python serve_embed.py
 ```
-
 Open `http://localhost:3000/embed.html` in your browser.
+
+#### Option B: React Application Example
+```bash
+# Navigate to React example
+cd examples/react-app
+
+# Install dependencies
+npm install
+
+# Start the React development server
+npm start
+```
+Open `http://localhost:3000` in your browser.
 
 ## 📚 API Documentation
 
@@ -178,6 +193,21 @@ SESSION_COOKIE_SECURE = True  # True if you're serving over HTTPS (recommended)
 ```
 
 ## 🎯 Usage Examples
+
+### Example Implementations
+
+This project includes two complete example implementations:
+
+#### 1. Vanilla JavaScript Example (`examples/vanilla-js/`)
+- **File**: `embed.html`
+- **Features**: Simple HTML/CSS/JavaScript implementation
+- **Best for**: Quick prototyping, simple integrations
+- **Setup**: Just serve the HTML file with a web server
+
+#### 2. React Application Example (`examples/react-app/`)
+- **Features**: Full React application with state management
+- **Best for**: Production applications, complex UIs
+- **Setup**: Standard React development workflow
 
 ### JavaScript Integration
 
@@ -314,14 +344,85 @@ LOG_LEVEL=DEBUG
 
 ```
 xtoken/
-├── main.py                 # FastAPI application for token generation
-├── serve_embed.py          # Local HTTP server for embedding demo
-├── embed.html              # Complete embedding example
-├── superset_confif.txt     # Superset configuration template
-├── requirements.txt        # Python dependencies
-├── .env                    # Environment variables (create this)
-├── .gitignore             # Git ignore rules
-└── README.md              # This file
+├── main.py                    # FastAPI application for token generation
+├── serve_embed.py             # Local HTTP server for embedding demo
+├── superset_confif.txt        # Superset configuration template
+├── requirements.txt           # Python dependencies
+├── .env                       # Environment variables (create this)
+├── .gitignore                # Git ignore rules
+├── LICENSE                   # MIT License
+├── README.md                 # This file
+└── examples/                 # Example implementations
+    ├── vanilla-js/           # Plain HTML/CSS/JavaScript example
+    │   ├── embed.html        # Complete embedding example
+    │   └── README.md         # Vanilla JS setup guide
+    └── react-app/            # React application example
+        ├── package.json      # React dependencies
+        ├── public/           # React public files
+        ├── src/              # React source code
+        │   ├── App.js        # Main React component
+        │   ├── App.css       # Component styles
+        │   ├── index.js      # React entry point
+        │   └── index.css     # Global styles
+        └── README.md         # React setup guide
+```
+
+## 📖 Example Implementations
+
+### Vanilla JavaScript Example
+
+Located in `examples/vanilla-js/`, this is a simple HTML/CSS/JavaScript implementation perfect for:
+
+- **Quick prototyping**
+- **Simple integrations**
+- **Learning the basics**
+- **No build process required**
+
+**Features:**
+- Single HTML file with embedded CSS and JavaScript
+- Fullscreen support
+- Responsive design
+- Error handling
+- Guest token management
+
+**Quick Start:**
+```bash
+# Start backend API
+uvicorn main:app --reload --port 8001
+
+# Start web server
+python serve_embed.py
+
+# Open http://localhost:3000/embed.html
+```
+
+### React Application Example
+
+Located in `examples/react-app/`, this is a full React application ideal for:
+
+- **Production applications**
+- **Complex user interfaces**
+- **State management**
+- **Component-based architecture**
+
+**Features:**
+- Modern React with hooks
+- Dynamic dashboard configuration
+- Loading states and error handling
+- Responsive design
+- Interactive UI for testing different dashboards
+
+**Quick Start:**
+```bash
+# Start backend API
+uvicorn main:app --reload --port 8001
+
+# Start React app
+cd examples/react-app
+npm install
+npm start
+
+# Open http://localhost:3000
 ```
 
 ## 🚀 Deployment
