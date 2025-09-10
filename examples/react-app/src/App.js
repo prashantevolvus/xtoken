@@ -8,7 +8,20 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isEmbedded, setIsEmbedded] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const dashboardRef = useRef(null);
+
+  // Handle fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   // Fetch guest token from your backend
   const fetchGuestToken = async () => {
@@ -68,6 +81,17 @@ function App() {
         width: '100%',
       });
 
+      // Force iframe resize after embedding
+      setTimeout(() => {
+        const iframe = dashboardRef.current?.querySelector('iframe');
+        if (iframe) {
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.minHeight = '70vh';
+          iframe.style.border = 'none';
+        }
+      }, 1000);
+
       setIsEmbedded(true);
     } catch (err) {
       console.error('Failed to embed dashboard:', err);
@@ -83,6 +107,17 @@ function App() {
     }
     setIsEmbedded(false);
     setError(null);
+    setIsFullscreen(false);
+  };
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
   };
 
   return (
@@ -140,6 +175,18 @@ function App() {
         </div>
 
         <div className="dashboard-content">
+          {isEmbedded && (
+            <div className="dashboard-controls">
+              <button 
+                className="btn btn-secondary" 
+                onClick={toggleFullscreen}
+                title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+              >
+                {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+              </button>
+            </div>
+          )}
+          
           {error && (
             <div className="error">
               <div>
@@ -172,10 +219,13 @@ function App() {
 
           <div 
             ref={dashboardRef}
+            className="dashboard-iframe-container"
             style={{ 
               height: '100%', 
               width: '100%',
-              display: isEmbedded ? 'block' : 'none'
+              minHeight: '70vh',
+              display: isEmbedded ? 'block' : 'none',
+              position: 'relative'
             }}
           />
         </div>
