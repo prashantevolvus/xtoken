@@ -156,9 +156,7 @@ def get_csrf(session: requests.Session, base: str,
     if r.status_code != 200:
         raise HTTPException(
             status_code=400,
-            detail=f"Fetching CSRF failed ({
-                r.status_code}): {
-                http_error_detail(r)}"
+            detail=f"Fetching CSRF failed ({r.status_code}): {http_error_detail(r)}"
         )
     data = r.json()
     csrf = data.get("result")
@@ -205,9 +203,7 @@ def resolve_dashboard_uuid(session: requests.Session, base: str,
     if r.status_code != 200:
         raise HTTPException(
             status_code=400,
-            detail=f"Could not resolve dashboard UUID from '{dash_arg}' ({
-                r.status_code}): {
-                http_error_detail(r)}"
+            detail=f"Could not resolve dashboard UUID from '{dash_arg}' ({r.status_code}): {http_error_detail(r)}"
         )
     data = r.json().get("result") or {}
     uuid = data.get("uuid")
@@ -249,9 +245,7 @@ def generate_guest_token(
     if r.status_code != 200:
         raise HTTPException(
             status_code=400,
-            detail=f"guest_token request failed ({
-                r.status_code}): {
-                http_error_detail(r)}"
+            detail=f"guest_token request failed ({r.status_code}): {http_error_detail(r)}"
         )
     data = r.json()
     token = data.get("token")
@@ -304,8 +298,7 @@ async def generate_guest_token_endpoint(
     """Generate a guest token for embedding a Superset dashboard"""
     try:
         # Trim trailing slash on base URL
-        base = config.SUPERSET_URL[:-
-                                   1] if config.SUPERSET_URL.endswith("/") else config.SUPERSET_URL
+        base = config.SUPERSET_URL[:-1] if config.SUPERSET_URL.endswith("/") else config.SUPERSET_URL
 
         # Use provided RLS or fall back to environment variable
         rls = request.rls if request.rls is not None else config.RLS_JSON
@@ -359,8 +352,7 @@ async def get_dashboard_info(
 ):
     """Get information about a specific dashboard"""
     try:
-        base = config.SUPERSET_URL[:-
-                                   1] if config.SUPERSET_URL.endswith("/") else config.SUPERSET_URL
+        base = config.SUPERSET_URL[:-1] if config.SUPERSET_URL.endswith("/") else config.SUPERSET_URL
 
         with requests.Session() as session:
             access_token = login(
