@@ -1,6 +1,6 @@
 # Superset Guest Token Generator & Embedding Solution
 
-A comprehensive solution for generating Superset guest tokens and embedding dashboards securely in web applications. This project provides a FastAPI backend for token generation and a complete embedding setup with proper security configurations.
+A comprehensive solution for generating Superset guest tokens and embedding dashboards securely in web applications. This project provides a FastAPI backend for token generation and a complete embedding setup with proper security configurations .
 
 ## 🚀 Features
 
