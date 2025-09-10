@@ -1,0 +1,45 @@
+
+# Guest Token Configuration for Embedded Dashboards
+GUEST_TOKEN_JWT_ALGO = "HS256"
+GUEST_TOKEN_HEADER_NAME = "X-GuestToken"
+GUEST_TOKEN_JWT_EXP_SECONDS = 600
+GUEST_ROLE_NAME = "EmbedGuest"
+
+# Talisman Security Configuration
+TALISMAN_ENABLED = True
+TALISMAN_CONFIG = {
+    # IMPORTANT: List every host that's allowed to embed your Superset
+    "content_security_policy": {
+        "default-src": ["'self'"],
+        "img-src": ["'self'", "data:"],
+        "script-src": ["'self'"],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        # Your web app domains that will host the iframe go here:
+        "frame-ancestors": [
+            "https://demo.app.io",
+            "https://sandbox-app.app.io", 
+            "https://sandbox-app.example.io",
+            "http://localhost:3000"
+        ],
+    },
+    # Tell browsers not to block iframes from other origins
+    "frame_options": None,
+}
+
+# CORS & Cookies Configuration (often needed in cross-site embeds)
+ENABLE_CORS = True
+CORS_OPTIONS = {
+    "supports_credentials": True,
+    "origins": [
+         "https://demo.app.io",
+            "https://sandbox-app.app.io", 
+            "https://sandbox-app.example.io",
+            "http://localhost:3000"
+    ],
+}
+
+# If your embed is cross-site and you use cookies/sessions, keep these aligned:
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True  # True if you're serving over HTTPS (recommended)
+
+#################################################
