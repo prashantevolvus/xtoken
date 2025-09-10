@@ -36,7 +36,21 @@
     #dashboard iframe {
       width: 100% !important;
       height: 100% !important;
-      min-height: 800px !important;
+      min-height: 80vh !important;
+      border: none !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      background: #fff;
+    }
+    
+    /* Additional iframe styling for better dashboard display */
+    #dashboard iframe[src*="superset"] {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 80vh !important;
       border: none !important;
       position: absolute !important;
       top: 0 !important;
@@ -179,7 +193,13 @@
           if (iframe) {
             iframe.style.width = '100%';
             iframe.style.height = '100%';
-            iframe.style.minHeight = '800px';
+            iframe.style.minHeight = '80vh';
+            iframe.style.border = 'none';
+            iframe.style.position = 'absolute';
+            iframe.style.top = '0';
+            iframe.style.left = '0';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
           }
         }, 1000);
         
